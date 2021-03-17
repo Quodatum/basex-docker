@@ -1,0 +1,5 @@
+# General Options
+
+# Local Options
+CHOP = false
+RESTXQERRORS = false
