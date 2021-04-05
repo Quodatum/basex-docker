@@ -1,8 +1,12 @@
-#
-# BaseX on alpine with openjdk 11 docker image
-# @author Andy Bunce
-FROM alpine:latest AS builder
-RUN apk --no-cache add zip
+# BaseX 9.5 with openjdk 11 docker image
+# @created 2021-03
+# author="Andy Bunce"
+# company="Quodatum Ltd"
+# maintainer="quodatum@gmail.com"
+
+FROM adoptopenjdk:11-jre-hotspot AS builder
+RUN apt-get update && apt-get install -y  unzip  && rm -rf /var/lib/apt/lists/*
+
 ADD https://files.basex.org/releases/9.5/BaseX95.zip /srv
 RUN cd /srv && unzip *.zip && rm *.zip
 
@@ -10,21 +14,12 @@ RUN cd /srv && unzip *.zip && rm *.zip
 COPY  .basex /srv/basex/
 
 # Main image
-FROM alpine:latest
-LABEL author="Andy Bunce"
-LABEL company="Quodatum Ltd"
-LABEL maintainer="quodatum@gmail.com"
-
-
-ENV JAVA_HOME="/usr/lib/jvm/default-jvm/"
-RUN apk add --no-cache bash openjdk11-jre-headless
-# Has to be set explictly to find binaries 
-ENV PATH=$PATH:${JAVA_HOME}/bin
-
+FROM adoptopenjdk:11-jre-hotspot
 RUN adduser -h /srv -D -u 1000 basex 
 COPY --from=builder --chown=basex:basex /srv/ /srv
-
 USER basex
+ENV PATH=$PATH:/srv/basex/bin
+
 # 1984/tcp: API
 # 8984/tcp: HTTP
 # 8985/tcp: HTTP stop
@@ -36,7 +31,6 @@ VOLUME ["/srv/basex/data" \
        ,"/srv/basex/lib/custom" \
        ]
 WORKDIR /srv
-
 
 # Run BaseX HTTP server by default
 CMD ["/srv/basex/bin/basexhttp"]
