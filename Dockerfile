@@ -15,9 +15,8 @@ COPY  .basex /srv/basex/
 
 # Main image
 FROM adoptopenjdk:11-jre-hotspot
-RUN adduser --home /srv --uid 1000 --disabled-password basex 
-COPY --from=builder --chown=basex:basex /srv/ /srv
-USER basex
+COPY --from=builder --chown=1000:1000 /srv/ /srv
+USER 1000
 ENV PATH=$PATH:/srv/basex/bin
 
 # 1984/tcp: API
