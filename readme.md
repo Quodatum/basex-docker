@@ -5,11 +5,12 @@ Published at https://hub.docker.com/r/quodatum/basexhttp
 See also  https://hub.docker.com/r/basex/basexhttp
 ## Features
 
-- significantly smaller image
 - adds a lib/custom volume for extension jars
 - currently using Java `openjdk11-jre-headless`
 - multi-arch-build, currently supported platforms  `linux/arm64/v8`,`linux/amd64`
 - runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
+- --significantly smaller image--
+
 ```
 docker run -d \
     --name basexhttpq \
@@ -35,6 +36,8 @@ docker buildx build  \
     --platform linux/arm/v7,linux/arm64,linux/amd64 \
     --tag quodatum/basexhttp:buildx-latest --push .
 ```
+## image
+ openjdk11-jre-headless is based on ubuntu 20.04
 ## Notes
  
 Building on Ubuntu 20.04 running on a Window 10 machine with WSL2 and docker desktop.
