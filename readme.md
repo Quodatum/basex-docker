@@ -1,15 +1,14 @@
 # BaseX Dockerfile
 
-An experimental alternative BaseX docker image.  
+An experimental alternative BaseX  multi-architecture docker image.  
 Published at https://hub.docker.com/r/quodatum/basexhttp
-See also  https://hub.docker.com/r/basex/basexhttp
+The official image  https://hub.docker.com/r/basex/basexhttp
 ## Features
-
+- supported platforms `linux/amd64`, `linux/arm64`, `linux/arm/v7`
 - adds a lib/custom volume for extension jars
 - currently using Java `openjdk11-jre-headless`
-- multi-arch-build, currently supported platforms  `linux/arm64/v8`,`linux/amd64`
 - runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
-- --significantly smaller image--
+- significantly smaller image
 
 ```
 docker run -d \
@@ -22,7 +21,7 @@ docker run -d \
     --volume "$HOME/basex/custom":/srv/basex/lib/custom \
     quodatum/basexhttp:latest
 ```
-## Build
+## Local build
 
 You will need to enable experimental Docker CLI features. See
 
@@ -37,7 +36,7 @@ docker buildx build  \
     --tag quodatum/basexhttp:buildx-latest --push .
 ```
 ## image
- openjdk11-jre-headless is based on ubuntu 20.04
+ adoptopenjdk:11-jre-hotspot is based on ubuntu 20.04
 ## Notes
  
 Building on Ubuntu 20.04 running on a Window 10 machine with WSL2 and docker desktop.
