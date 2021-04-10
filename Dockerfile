@@ -33,3 +33,7 @@ WORKDIR /srv
 
 # Run BaseX HTTP server by default
 CMD ["/srv/basex/bin/basexhttp"]
+
+LABEL org.opencontainers.image.source="https://github.com/Quodatum/basex-docker"
+LABEL org.opencontainers.image.vendor="Quodatum Ltd"
+LABEL org.opencontainers.image.licenses="Apache-2.0"

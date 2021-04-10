@@ -1,9 +1,9 @@
+# multi-arch docker build
 name: ci
 
 on:
   push:
-    branches:
-      - 'master'
+    branches: [ main ]
 
 jobs:
   docker:
