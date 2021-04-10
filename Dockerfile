@@ -7,17 +7,20 @@ ARG JDK_IMAGE=adoptopenjdk:11-jre-hotspot
 ARG BASEX_VER=9.5
 
 FROM $JDK_IMAGE  AS builder
-RUN apt-get update && apt-get install -y  unzip  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y  \
+         unzip \
+         wget \
+         && rm -rf /var/lib/apt/lists/*
 
-ADD https://files.basex.org/releases/${BASEX_VER}/BaseX*.zip /srv
-RUN cd /srv && unzip *.zip && rm *.zip
+ENV SRC="https://files.basex.org/releases/${BASEX_VER}/BaseX95.zip" 
+RUN cd /srv && wget $SRC && unzip *.zip && rm *.zip
 
-# custom options
-COPY  .basex /srv/basex/
 
 # Main image
 FROM $JDK_IMAGE
 COPY --from=builder --chown=1000:1000 /srv/ /srv
+# custom options
+COPY  .basex /srv/basex/
 USER 1000
 ENV PATH=$PATH:/srv/basex/bin
 
