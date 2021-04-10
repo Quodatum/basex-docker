@@ -1,5 +1,5 @@
 # multi-arch docker build
-name: ci
+name: multi-arch docker buildx
 
 on:
   push:
