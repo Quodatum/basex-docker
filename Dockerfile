@@ -3,10 +3,11 @@
 # author="Andy Bunce"
 # company="Quodatum Ltd"
 # maintainer="quodatum@gmail.com"
+ARG JDK_IMAGE=adoptopenjdk:11-jre-hotspot
 ARG BASEX_VER
 ARG JDK_VER
 
-FROM adoptopenjdk:${JDK_VER:11-jre-hotspot} AS builder
+FROM $JDK_IMAGE  AS builder
 ENV BASEX_VER=${BASEX_VER:9.5}
 RUN apt-get update && apt-get install -y  unzip  && rm -rf /var/lib/apt/lists/*
 
@@ -17,7 +18,7 @@ RUN cd /srv && unzip *.zip && rm *.zip
 COPY  .basex /srv/basex/
 
 # Main image
-FROM adoptopenjdk:${JDK_VER:11-jre-hotspot}
+FROM $JDK_IMAGE
 ENV BASEX_VER=${BASEX_VER:9.5}
 ENV JDK_VER=${JDK_VER:11-jre-hotspot}
 COPY --from=builder --chown=1000:1000 /srv/ /srv
@@ -43,4 +44,4 @@ LABEL org.opencontainers.image.source="https://github.com/Quodatum/basex-docker"
 LABEL org.opencontainers.image.vendor="Quodatum Ltd"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 LABEL link.quodatum.basex-docker.basex="${BASEX_VER}"
-LABEL link.quodatum.basex-docker.jdk="${JDK_VER}"
+LABEL link.quodatum.basex-docker.jdk="${JDK_IMAGE}"
