@@ -4,12 +4,10 @@
 # company="Quodatum Ltd"
 # maintainer="quodatum@gmail.com"
 ARG BASEX_VER
-ENV BASEX_VER=${BASEX_VER:9.5}
 ARG JDK_VER
-ENV JDK_VER=${JDK_VER:11-jre-hotspot}
 
-FROM adoptopenjdk:${JDK_VER} AS builder
-
+FROM adoptopenjdk:${JDK_VER:11-jre-hotspot} AS builder
+ENV BASEX_VER=${BASEX_VER:9.5}
 RUN apt-get update && apt-get install -y  unzip  && rm -rf /var/lib/apt/lists/*
 
 ADD https://files.basex.org/releases/${BASEX_VER}/BaseX*.zip /srv
@@ -19,7 +17,9 @@ RUN cd /srv && unzip *.zip && rm *.zip
 COPY  .basex /srv/basex/
 
 # Main image
-FROM adoptopenjdk:${JDK_VER}
+FROM adoptopenjdk:${JDK_VER:11-jre-hotspot}
+ENV BASEX_VER=${BASEX_VER:9.5}
+ENV JDK_VER=${JDK_VER:11-jre-hotspot}
 COPY --from=builder --chown=1000:1000 /srv/ /srv
 USER 1000
 ENV PATH=$PATH:/srv/basex/bin
