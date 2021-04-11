@@ -1,8 +1,11 @@
 # BaseX Dockerfile
 
-An experimental alternative BaseX  multi-architecture docker image.  
+An alternative BaseX  multi-architecture docker image.  
 Published at https://hub.docker.com/r/quodatum/basexhttp
 The official image  https://hub.docker.com/r/basex/basexhttp
+
+[![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
+
 ## Features
 - supported platforms `linux/amd64`, `linux/arm64`, `linux/arm/v7`
 - adds a lib/custom volume for extension jars
@@ -21,6 +24,9 @@ docker run -d \
     --volume "$HOME/basex/custom":/srv/basex/lib/custom \
     quodatum/basexhttp:latest
 ```
+## Github actions build
+https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml
+
 ## Local build
 
 You will need to enable experimental Docker CLI features. See
