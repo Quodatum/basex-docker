@@ -7,11 +7,8 @@ ARG JDK_IMAGE=adoptopenjdk:11-jre-hotspot
 ARG BASEX_VER=https://files.basex.org/releases/9.5/BaseX95.zip
 
 FROM $JDK_IMAGE  AS builder
-RUN apt-get update && apt-get install -y  \
-         unzip \
-         wget 
-
-RUN cd /srv && wget "$BASEX_VER" && unzip *.zip && rm *.zip
+RUN apt-get update && apt-get install -y  unzip wget && \
+    cd /srv && wget https://files.basex.org/releases/9.5/BaseX95.zip && unzip *.zip && rm *.zip
 
 
 # Main image
