@@ -1,8 +1,6 @@
 # BaseX 9.5 with openjdk 11 docker image
 # @created 2021-03
 # author="Andy Bunce"
-# company="Quodatum Ltd"
-# maintainer="quodatum@gmail.com"
 ARG JDK_IMAGE=adoptopenjdk:11-jre-hotspot
 ARG BASEX_VER=https://files.basex.org/releases/9.5/BaseX95.zip
 

@@ -1,6 +1,8 @@
 # multi-arch docker build
 name: multi-arch docker buildx
-
+env:
+    JDK_IMAGE: adoptopenjdk:11-jre-hotspot
+    BASEX_VER: https://files.basex.org/releases/9.5/BaseX95.zip
 on:
   push:
     branches: [ main ]
@@ -26,9 +28,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/386
           push: true
-          tags: quodatum/basexhttp:latest
+          tags: quodatum/basexhttp:latest,quodatum/basexhttp:BaseX95.zip,quodatum/basexhttp:11-jre-hotspot
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
