@@ -30,7 +30,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
-          tags: quodatum/basexhttp:latest,quodatum/basexhttp:BaseX95.zip,quodatum/basexhttp:11-jre-hotspot
+          tags: quodatum/basexhttp:latest,quodatum/basexhttp:BaseX95.zip,quodatum/basexhttp:adoptopenjdk:11-jre-hotspot
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
