@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y  \
          unzip \
          wget 
 
-RUN cd /srv && wget $BASEX_VER && unzip *.zip && rm *.zip
+RUN cd /srv && wget "$BASEX_VER" && unzip *.zip && rm *.zip
 
 
 # Main image
