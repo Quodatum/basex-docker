@@ -2,7 +2,9 @@
 name: multi-arch docker buildx
 env:
     JDK_IMAGE: adoptopenjdk:11-jre-hotspot
+    JDK_LABEL: 11-jre-hotspot
     BASEX_VER: https://files.basex.org/releases/9.5/BaseX95.zip
+    BASEX_LABEL: BaseX95
 on:
   push:
     branches: [ main ]
@@ -30,7 +32,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
-          tags: quodatum/basexhttp:latest,quodatum/basexhttp:BaseX95.zip,quodatum/basexhttp:adoptopenjdk:11-jre-hotspot
+          tags: quodatum/basexhttp:latest,quodatum/basexhttp:${{ env.JDK_LABEL }},quodatum/basexhttp:${{ env.BASEX_LABEL }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
