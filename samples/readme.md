@@ -1,3 +1,7 @@
-# quodatum//basexhttp Usage examples
+# quodatum/basexhttp Usage examples
 
-todo
+## minimal
+
+```
+docker run -p 7777:8984 quodatum/basexhttp
+```
