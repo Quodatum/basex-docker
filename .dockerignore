@@ -1,2 +1,10 @@
 #Ignore the samples directory
 samples/
+
+#Ignoring git and other folders
+.git
+.github
+.settings
+
+#Ignoring all the markdown 
+*.md

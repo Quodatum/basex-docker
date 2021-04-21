@@ -1,33 +1,42 @@
 # BaseX Dockerfile
 
-An alternative BaseX  multi-architecture docker image.  
+Experiments with an alternative BaseX  multi-architecture docker image.  
 Published at https://hub.docker.com/r/quodatum/basexhttp
 The official image  https://hub.docker.com/r/basex/basexhttp
 
 [![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
 
 ## Features
-- supported platforms `linux/amd64`, `linux/arm64`, `linux/arm/v7`
-- adds a lib/custom volume for extension jars
-- currently using Java `openjdk11-jre-headless`
-- runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
-- significantly smaller image
+- Supported platforms `linux/amd64`, `linux/arm64`, `linux/arm/v7`
+- Adds a lib/custom volume for extension jars
+- Currently using Java `openjdk11-jre-headless`
+- Runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
+- Significantly smaller image (95 MB vs 152 MB)
+- [InaccessibleObjectException](https://www.mail-archive.com/basex-talk%40mailman.uni-konstanz.de/msg13498.html) remediation via JVM options
+ 
+# Notes
+## JVM options
+* --add-opens java.base/java.net=ALL-UNNAMED 
+* --add-opens java.base/jdk.internal.loader=ALL-UNNAMED
 
+## Run examples
 ```
-docker run -d \
-    --name basexhttpq \
-    --publish 1984:1984 \
-    --publish 8984:8984 \
-    --volume "$HOME/basex/data":/srv/basex/data \
-    --volume "$HOME/basex/repo":/srv/basex/repo \
-    --volume "$HOME/basex/webapp":/srv/basex/webapp \
-    --volume "$HOME/basex/custom":/srv/basex/lib/custom \
+ docker rm basexhttpq
+
+# run using repo
+ docker run --name basexhttpq --publish 28984:8984 \
+    -v `pwd`/repo:/srv/basex/repo  \
     quodatum/basexhttp:latest
 ```
-## Github actions build
-https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml
+## Build
 
-## Local build
+In my experience pushing a locally built multi-arch image often failed. [Github actions](https://docs.github.com/en/actions) works.
+### Github actions 
+
+* [workflows](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
+* [code](https://github.com/Quodatum/basex-docker/blob/main/.github/workflows/buildx.yml)
+
+### Local build
 
 You will need to enable experimental Docker CLI features. See
 
