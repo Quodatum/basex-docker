@@ -9,7 +9,7 @@ ARG BASEX_VER
 RUN echo 'using Basex: ' "$BASEX_VER"
 RUN apt-get update && apt-get install -y  unzip wget && \
     cd /srv && wget "$BASEX_VER" && unzip *.zip && rm *.zip
-
+COPY  .basex /srv/basex/
 
 # Main image
 FROM $JDK_IMAGE

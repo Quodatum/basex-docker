@@ -1,10 +1,10 @@
 # BaseX Dockerfile
+[![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
 
 Experiments with an alternative BaseX  multi-architecture docker image.  
-Published at https://hub.docker.com/r/quodatum/basexhttp
-The official BaseX image ispublished at https://hub.docker.com/r/basex/basexhttp
-
-[![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
+## Related images
+* [quodatum/basexhttp](https://hub.docker.com/r/quodatum/basexhttp) This image on docker hub
+* [basex/basexhttp](https://hub.docker.com/r/basex/basexhttp) The official BaseX image on docker hub
 
 ## Features
 - Supported platforms `linux/amd64`, `linux/arm64`, `linux/arm/v7`
@@ -14,11 +14,11 @@ The official BaseX image ispublished at https://hub.docker.com/r/basex/basexhttp
 - Significantly smaller image (95 MB vs 152 MB)
 - [InaccessibleObjectException](https://www.mail-archive.com/basex-talk%40mailman.uni-konstanz.de/msg13498.html) remediation via JVM options
  
-# Dockerfile notes
-## Java image
+## Dockerfile notes
+### Java image
 Java `openjdk11-jre-headless` is based on ubuntu 20.04
-## JVM options
-### inaccessibleobjectexception
+### JVM options
+#### inaccessibleobjectexception
 
 * --add-opens java.base/java.net=ALL-UNNAMED 
 * --add-opens java.base/jdk.internal.loader=ALL-UNNAMED
@@ -29,6 +29,12 @@ Java `openjdk11-jre-headless` is based on ubuntu 20.04
 ```
 # run using repo
  docker run  -p 28984:8984 -v `pwd`/repo:/srv/basex/repo quodatum/basexhttp:latest
+
+# webapp
+docker run  -p 28984:8984 \
+            -v `pwd`/webapp:/srv/basex/webapp \
+            -v `pwd`/repo:/srv/basex/repo \
+            quodatum/basexhttp:latest
 ```
 ## Build
 
@@ -64,4 +70,4 @@ Building on Ubuntu 20.04 running on a Window 10 machine with
 #33 10.08 retrying in 1s
 ``
 
-The `build.sh` has more success by pushing each arch seperately.
+The script `build.sh` has more success by pushing each arch seperately.
