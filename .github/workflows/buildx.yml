@@ -1,4 +1,7 @@
 # multi-arch BaseX docker build
+# platforms: linux/amd64,linux/arm/v7,linux/arm64
+# published to: DockerHub, github
+ 
 name: multi-arch docker buildx
 env:
     JDK_IMAGE: adoptopenjdk:11-jre-hotspot
@@ -51,6 +54,7 @@ jobs:
             quodatum/basexhttp:latest
             quodatum/basexhttp:${{ env.JDK_TAG }}
             quodatum/basexhttp:${{ env.BASEX_TAG }}
+            ghcr.io/quodatum/basexhttp:latest
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
