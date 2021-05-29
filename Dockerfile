@@ -16,8 +16,7 @@ FROM $JDK_IMAGE
 ARG JDK_IMAGE
 ARG BASEX_VER
 COPY --from=builder --chown=1000:1000 /srv/ /srv
-# custom options
-COPY  .basex /srv/basex/
+
 USER 1000
 ENV PATH=$PATH:/srv/basex/bin
 # JVM options e.g "-Xmx2048m "
