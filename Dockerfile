@@ -15,9 +15,10 @@ COPY  .basex /srv/basex/
 FROM $JDK_IMAGE
 ARG JDK_IMAGE
 ARG BASEX_VER
-COPY --from=builder --chown=1000:1000 /srv/ /srv
+RUN useradd -u 1984 basex
+COPY --from=builder --chown=basex:basex /srv/ /srv
 
-USER 1000
+USER basex
 ENV PATH=$PATH:/srv/basex/bin
 # JVM options e.g "-Xmx2048m "
 ENV BASEX_JVM="--add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/jdk.internal.loader=ALL-UNNAMED"
@@ -40,5 +41,5 @@ CMD ["/srv/basex/bin/basexhttp"]
 LABEL org.opencontainers.image.source="https://github.com/Quodatum/basex-docker"
 LABEL org.opencontainers.image.vendor="Quodatum Ltd"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
-LABEL link.quodatum.basex-docker.basex="${BASEX_VER}"
-LABEL link.quodatum.basex-docker.jdk="${JDK_IMAGE}"
+LABEL com.quodatum.basex-docker.basex="${BASEX_VER}"
+LABEL com.quodatum.basex-docker.jdk="${JDK_IMAGE}"

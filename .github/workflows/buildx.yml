@@ -1,7 +1,8 @@
 # multi-arch BaseX docker build
 # platforms: linux/amd64,linux/arm/v7,linux/arm64
-# published to: DockerHub, github
- 
+# publishes to: DockerHub, github
+# @see https://docs.github.com/en/actions/guides/publishing-docker-images#publishing-images-to-github-packages
+
 name: multi-arch docker buildx
 env:
     JDK_IMAGE: adoptopenjdk:11-jre-hotspot
@@ -41,8 +42,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           
       -
-        name: Build and push
-        id: docker_build
+        name: Build and push to dockerhub
+        id: dockerhub_build
         uses: docker/build-push-action@v2
         with:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
@@ -59,6 +60,24 @@ jobs:
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
+      -
+        name: Build and push to github
+        id: github_build
+        uses: docker/build-push-action@v2
+        with:
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          push: true
+          build-args: |
+            JDK_IMAGE=${{ env.JDK_IMAGE }}
+            BASEX_VER=${{ env.BASEX_VER }}
+          tags: |
+            ghcr.io/quodatum/basexhttp:latest
+            ghcr.io/quodatum/basexhttp:${{ env.JDK_TAG }}
+            ghcr.io/quodatum/basexhttp:${{ env.BASEX_TAG }}
+          labels: |
+            org.opencontainers.image.source=${{ github.event.repository.html_url }}
+            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
+            org.opencontainers.image.revision=${{ github.sha }}            
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
