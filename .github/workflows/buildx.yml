@@ -18,31 +18,19 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Set up QEMU
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
         
-      -
-        name: Login to DockerHub
+      - name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
  
-      -
-        name: Login to GitHub Container Registry
-        uses: docker/login-action@v1 
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          
-      -
-        name: Build and push to dockerhub
+      - name: Build and push to dockerhub
         id: dockerhub_build
         uses: docker/build-push-action@v2
         with:
@@ -55,13 +43,19 @@ jobs:
             quodatum/basexhttp:latest
             quodatum/basexhttp:${{ env.JDK_TAG }}
             quodatum/basexhttp:${{ env.BASEX_TAG }}
-            ghcr.io/quodatum/basexhttp:latest
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
-      -
-        name: Build and push to github
+            
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1 
+        with:
+            registry: docker.pkg.github.com
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+           
+      - name: Build and push to github
         id: github_build
         uses: docker/build-push-action@v2
         with:
@@ -71,13 +65,13 @@ jobs:
             JDK_IMAGE=${{ env.JDK_IMAGE }}
             BASEX_VER=${{ env.BASEX_VER }}
           tags: |
-            ghcr.io/quodatum/basexhttp:latest
-            ghcr.io/quodatum/basexhttp:${{ env.JDK_TAG }}
-            ghcr.io/quodatum/basexhttp:${{ env.BASEX_TAG }}
+            docker.pkg.github.com/quodatum/basexhttp:latest
+            docker.pkg.github.com/quodatum/basexhttp:${{ env.JDK_TAG }}
+            docker.pkg.github.com/quodatum/basexhttp:${{ env.BASEX_TAG }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
-            org.opencontainers.image.revision=${{ github.sha }}            
-      -
-        name: Image digest
+            org.opencontainers.image.revision=${{ github.sha }}
+            
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
