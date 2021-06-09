@@ -51,8 +51,8 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1 
         with:
-            registry: docker.pkg.github.com
-            username: ${{ github.actor }}
+            registry: ghcr.io
+            username: ${{ github.repository_owner }}
             password: ${{ secrets.GITHUB_TOKEN }}
            
       - name: Build and push to github
@@ -65,9 +65,9 @@ jobs:
             JDK_IMAGE=${{ env.JDK_IMAGE }}
             BASEX_VER=${{ env.BASEX_VER }}
           tags: |
-            docker.pkg.github.com/quodatum/basexhttp:latest
-            docker.pkg.github.com/quodatum/basexhttp:${{ env.JDK_TAG }}
-            docker.pkg.github.com/quodatum/basexhttp:${{ env.BASEX_TAG }}
+            ghcr.io/quodatum/basexhttp:latest
+            ghcr.io/quodatum/basexhttp:${{ env.JDK_TAG }}
+            ghcr.io/quodatum/basexhttp:${{ env.BASEX_TAG }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
