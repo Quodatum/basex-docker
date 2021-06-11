@@ -1,6 +1,6 @@
 # multi-arch BaseX docker build
 # platforms: linux/amd64,linux/arm/v7,linux/arm64
-# publishes to: DockerHub, github
+# publishes to: DockerHub, github (ghcr.io)
 # @see https://docs.github.com/en/actions/guides/publishing-docker-images#publishing-images-to-github-packages
 
 name: multi-arch docker buildx

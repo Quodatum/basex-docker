@@ -1,20 +1,34 @@
 # BaseX Dockerfile
 [![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
 
-Experiments with an alternative BaseX  multi-architecture docker image.  
-## Related images
-* [quodatum/basexhttp](https://hub.docker.com/r/quodatum/basexhttp) This image on docker hub
-* [basex/basexhttp](https://hub.docker.com/r/basex/basexhttp) The official BaseX image on docker hub
-
+Experiments with an alternative [BaseX](https://basex.org)  multi-architecture docker image. 
 ## Features
 - Supported platforms `linux/amd64`, `linux/arm64`, `linux/arm/v7`
 - Adds a lib/custom volume for extension jars
 - Currently using Java `openjdk11-jre-headless`
 - Runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
-- Significantly smaller image (95 MB vs 152 MB)
+- Significantly smaller compressed image (95 MB vs 152 MB)
 - [InaccessibleObjectException](https://www.mail-archive.com/basex-talk%40mailman.uni-konstanz.de/msg13498.html) remediation via JVM options
  
+## Pull
+This image from https://hub.docker.com/r/quodatum/basexhttp
+```
+docker pull quodatum/basexhttp:latest
+```
+
+This image from github ghcr.io
+```
+docker pull ghcr.io/quodatum/basexhttp:latest
+```
+
+The official BaseX image on docker hub
+```
+docker pull basex/basexhttp:latest
+```
+
+ 
 ## Dockerfile notes
+
 ### Java image
 Java `openjdk11-jre-headless` is based on ubuntu 20.04
 ### JVM options
