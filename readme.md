@@ -7,8 +7,8 @@ Experiments with an alternative [BaseX](https://basex.org)  multi-architecture d
 - Adds a lib/custom volume for extension jars
 - Currently using Java `openjdk11-jre-headless`
 - Runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
-- Significantly smaller compressed image (95 MB vs 152 MB)
-- [InaccessibleObjectException](https://www.mail-archive.com/basex-talk%40mailman.uni-konstanz.de/msg13498.html) remediation via JVM options
+
+- `InaccessibleObjectException` [remediation](https://www.mail-archive.com/basex-talk%40mailman.uni-konstanz.de/msg13498.html) via JVM options
  
 ## Pull
 This image from https://hub.docker.com/r/quodatum/basexhttp
@@ -26,7 +26,14 @@ The official BaseX image on docker hub
 docker pull basex/basexhttp:latest
 ```
 
- 
+## Supported JVM versions
+* adoptopenjdk:11-jre-hotspot
+### to be tested
+* adoptopenjdk:16-jre-hotspot
+* adoptopenjdk:15-jre-hotspot
+* adoptopenjdk:12-jre-hotspot 
+* adoptopenjdk:8-jre-hotspot 
+* 
 ## Dockerfile notes
 
 ### Java image
