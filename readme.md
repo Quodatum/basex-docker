@@ -2,6 +2,7 @@
 [![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
 
 Experiments with an alternative [BaseX](https://basex.org)  multi-architecture docker image. 
+The github action script `buildx.yml` publishes images to docker hub and github container repositories.
 ## Features
 - Supported platforms `linux/amd64`, `linux/arm64`, `linux/arm/v7`
 - Adds a lib/custom volume for extension jars
@@ -57,6 +58,10 @@ docker run  -p 28984:8984 \
             -v `pwd`/repo:/srv/basex/repo \
             quodatum/basexhttp:latest
 ```
+
+## Docker-compose
+
+
 ## Build
 
 In my experience pushing a locally built multi-arch image often failed. See below for details. 

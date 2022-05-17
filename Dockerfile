@@ -2,23 +2,21 @@
 # @created 2021-03
 # author="Andy Bunce"
 ARG JDK_IMAGE=adoptopenjdk:11-jre-hotspot
-ARG BASEX_VER=https://files.basex.org/releases/9.5/BaseX95.zip
+ARG BASEX_VER=https://files.basex.org/releases/9.7.2/BaseX972.zip
 
 FROM $JDK_IMAGE  AS builder
 ARG BASEX_VER
 RUN echo 'using Basex: ' "$BASEX_VER"
 RUN apt-get update && apt-get install -y  unzip wget && \
     cd /srv && wget "$BASEX_VER" && unzip *.zip && rm *.zip
-COPY  .basex /srv/basex/
+COPY  basex/.basex /srv/basex/
+COPY  basex/custom/* /srv/basex/lib/custom
 
 # Main image
 FROM $JDK_IMAGE
 ARG JDK_IMAGE
 ARG BASEX_VER
-RUN useradd -u 1984 basex
-COPY --from=builder --chown=basex:basex /srv/ /srv
 
-USER basex
 ENV PATH=$PATH:/srv/basex/bin
 # JVM options e.g "-Xmx2048m "
 ENV BASEX_JVM="--add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/jdk.internal.loader=ALL-UNNAMED"
@@ -29,9 +27,9 @@ ENV BASEX_JVM="--add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/
 EXPOSE 1984 8984 8985
 
 VOLUME ["/srv/basex/data" \
-       ,"/srv/basex/webapp" \
-       ,"/srv/basex/repo" \
-       ,"/srv/basex/lib/custom" \
+#       ,"/srv/basex/webapp" \
+#       ,"/srv/basex/repo" \
+#       ,"/srv/basex/lib/custom" \
        ]
 WORKDIR /srv
 
