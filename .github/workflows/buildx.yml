@@ -6,9 +6,9 @@
 name: multi-arch docker buildx
 env:
     JDK_IMAGE: adoptopenjdk:11-jre-hotspot
-    JDK_TAG: 15-jre-hotspot
-    BASEX_VER: https://files.basex.org/releases/9.5.2/BaseX952.zip
-    BASEX_TAG: BaseX952
+    JDK_TAG: 11-jre-hotspot
+    BASEX_VER: https://files.basex.org/releases/9.7.2/BaseX972.zip
+    BASEX_TAG: BaseX972
     
 on:
   workflow_dispatch:  
