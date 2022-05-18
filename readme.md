@@ -27,17 +27,41 @@ The official BaseX image on docker hub
 docker pull basex/basexhttp:latest
 ```
 ## Run examples
-```
-# basic run: access to dba and chat, but no data persistance
- docker run  -p 8984:8984  quodatum/basexhttp:latest
 
-# persist data and settings to a local folder
+### Simple test: access to dba and chat, but no data persistance
+```
+ docker run  -p 8984:8984  quodatum/basexhttp:latest
+```
+### Persist data and settings to a volume
+```
+docker volume create my-basex-data 
+
+docker run  -p 8984:8984 \
+            -v my-basex-data:/srv/basex/data \
+            -d quodatum/basexhttp:latest 
+```
+### Persist data and settings to a local folder
+```
 mkdir data 
 chown -R 1000:1000 data
 
 docker run  -p 8984:8984 \
             -v `pwd`/data:/srv/basex/data \
             -d quodatum/basexhttp:latest 
+```
+### Shadow web server root page
+```
+cat root.xqm
+module namespace _ = 'urn:quodatum:test';
+declare %rest:GET %rest:path('') %output:method('text')
+function _:root(){
+"Hello, I'm a new text only front page"
+};
+
+docker run  -p 8984:8984 \
+            -v `pwd`/data:/srv/basex/data \
+            -v `pwd`/root.xqm:/srv/basex/webapp/restxq.xqm \
+            -d quodatum/basexhttp:latest
 ```
 # webapp
 ```
