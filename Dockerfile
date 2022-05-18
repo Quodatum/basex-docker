@@ -1,4 +1,4 @@
-# BaseX 9.5 with openjdk 11 docker image
+# Build BaseX docker image with customisation from folder basex
 # @created 2021-03
 # author="Andy Bunce"
 ARG JDK_IMAGE=adoptopenjdk:11-jre-hotspot
@@ -9,13 +9,17 @@ ARG BASEX_VER
 RUN echo 'using Basex: ' "$BASEX_VER"
 RUN apt-get update && apt-get install -y  unzip wget && \
     cd /srv && wget "$BASEX_VER" && unzip *.zip && rm *.zip
-COPY  basex/.basex /srv/basex/
-COPY  basex/custom/* /srv/basex/lib/custom
+
 
 # Main image
 FROM $JDK_IMAGE
 ARG JDK_IMAGE
 ARG BASEX_VER
+
+COPY --from=builder --chown=1000:1000 /srv/ /srv
+USER 1000
+COPY  basex/.basex /srv/basex/
+COPY  basex/custom/* /srv/basex/lib/custom
 
 ENV PATH=$PATH:/srv/basex/bin
 # JVM options e.g "-Xmx2048m "
