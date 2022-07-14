@@ -2,7 +2,7 @@
 # @created 2021-03
 # author="Andy Bunce"
 ARG JDK_IMAGE=adoptopenjdk:11-jre-hotspot
-ARG BASEX_VER=https://files.basex.org/releases/9.7.2/BaseX972.zip
+ARG BASEX_VER=https://files.basex.org/releases/9.7.3/BaseX973.zip
 
 FROM $JDK_IMAGE  AS builder
 ARG BASEX_VER
@@ -30,11 +30,7 @@ ENV BASEX_JVM="--add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/
 # 8985/tcp: HTTP stop
 EXPOSE 1984 8984 8985
 
-VOLUME ["/srv/basex/data" \
-#       ,"/srv/basex/webapp" \
-#       ,"/srv/basex/repo" \
-#       ,"/srv/basex/lib/custom" \
-       ]
+# no VOLUMEs defined
 WORKDIR /srv
 
 # Run BaseX HTTP server by default
