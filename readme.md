@@ -7,10 +7,13 @@ The github action script `buildx.yml` publishes images to docker hub and github 
 
 
 - Supported platforms `linux/amd64`, `linux/arm64`, `linux/arm/v7`
-- Adds `saxon-he-10.8.jar` from [Saxonica](https://www.saxonica.com/products/products.xml) to `lib/custom` for XSLT 3.0 support
+
 - Runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
 - `InaccessibleObjectException` [remediation](https://www.mail-archive.com/basex-talk%40mailman.uni-konstanz.de/msg13498.html) via JVM options
- 
+
+## Dependances
+-  `saxon-he-11.3.jar` from [Saxonica](https://www.saxonica.com/products/products.xml) to `lib/custom` for XSLT 3.0 support
+- `xmlresolver-4.2.0.jar` [xmlresolver](https://github.com/xmlresolver/xmlresolver/releases/tag/4.2.0)
 ## Pull
 This image from [docker hub](https://hub.docker.com/r/quodatum/basexhttp)
 ```
