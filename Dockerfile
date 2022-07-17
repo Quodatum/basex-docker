@@ -27,7 +27,7 @@ RUN addgroup --gid basex
 RUN adduser --home /srv/basex/ --uid 1000 --gid 1000 basex
 
 # Chown all the files to the basex user.
-RUN chown -R appuser:xyzgroup /srv/basex
+RUN chown -R basex:basex /srv/basex
 
 # Switch to 'basex'
 USER basex
