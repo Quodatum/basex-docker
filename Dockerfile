@@ -21,10 +21,10 @@ COPY --from=builder  /srv/ /srv
 COPY  basex/.basex /srv/basex/
 COPY  basex/custom/* /srv/basex/lib/custom
 # Create a user group 'basex'
-RUN addgroup -S basex
+RUN addgroup --gid basex
 
 # Create a user 'basex' under 'basex'
-RUN adduser -S -D -h /srv/basex/ basex basex
+RUN adduser --home /srv/basex/ --uid 1000 --gid 1000 basex
 
 # Chown all the files to the basex user.
 RUN chown -R appuser:xyzgroup /srv/basex
