@@ -3,3 +3,4 @@
 # Local Options
 CHOP = false
 RESTXQERRORS = false
+CATALOG = /svr/basex/etc/w3-catalog.xml

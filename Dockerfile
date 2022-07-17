@@ -16,10 +16,21 @@ FROM $JDK_IMAGE
 ARG JDK_IMAGE
 ARG BASEX_VER
 
-COPY --from=builder --chown=1000:1000 /srv/ /srv
-USER 1000
+COPY --from=builder  /srv/ /srv
+
 COPY  basex/.basex /srv/basex/
 COPY  basex/custom/* /srv/basex/lib/custom
+# Create a user group 'basex'
+RUN addgroup -S basex
+
+# Create a user 'basex' under 'basex'
+RUN adduser -S -D -h /srv/basex/ basex basex
+
+# Chown all the files to the basex user.
+RUN chown -R appuser:xyzgroup /srv/basex
+
+# Switch to 'basex'
+USER basex
 
 ENV PATH=$PATH:/srv/basex/bin
 # JVM options e.g "-Xmx2048m "
