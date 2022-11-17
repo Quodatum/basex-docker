@@ -1,7 +1,7 @@
 # Build BaseX docker image with customisation from folder basex
 # @created 2021-03
 # author="Andy Bunce"
-ARG JDK_IMAGE=adoptopenjdk:11-jre-hotspot
+ARG JDK_IMAGE=adoptopenjdk:17-jre-hotspot
 ARG BASEX_VER=https://files.basex.org/releases/9.7.3/BaseX973.zip
 
 FROM $JDK_IMAGE  AS builder
