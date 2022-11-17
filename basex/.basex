@@ -1,5 +1,5 @@
 # General Options
 
 # Local Options
-CATALOG = /svr/basex/etc/w3-catalog.xml #v10
+CATALOG = /svr/basex/etc/w3-catalog.xml
 
