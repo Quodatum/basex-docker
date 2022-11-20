@@ -30,7 +30,7 @@ docker pull ghcr.io/quodatum/basexhttp:latest
 ## Usage examples
 
 ### Simple test 
-Create and start a container named `basex` running the BaseX 10.3 http server on port 8080
+Create and start a container named `basex10` running the BaseX 10.3 http server on port 8080
 
 ```bash
 docker run --name basex10 -p 8080:8080 -d quodatum/basexhttp:basex-10.3 
