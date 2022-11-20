@@ -8,7 +8,7 @@ env:
     JDK_IMAGE: eclipse-temurin:17-jre
     JDK_TAG: 17-jre
     BASEX_VER: https://files.basex.org/releases/10.3/BaseX103.zip
-    BASEX_TAG: BaseX10.3
+    BASEX_TAG: basex-10.3
     
 on:
   workflow_dispatch:  

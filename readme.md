@@ -11,9 +11,10 @@ The github action script `buildx.yml` publishes images to docker hub and github 
 - Runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
 - `InaccessibleObjectException` [remediation](https://www.mail-archive.com/basex-talk%40mailman.uni-konstanz.de/msg13498.html) via JVM options
 
-## Dependances
--  `saxon-he-11.3.jar` from [Saxonica](https://www.saxonica.com/products/products.xml) to `lib/custom` for XSLT 3.0 support
-- `xmlresolver-4.2.0.jar` [xmlresolver](https://github.com/xmlresolver/xmlresolver/releases/tag/4.2.0)
+## Additional libraries supplied in image
+The image is created with the jars below in `/lib/custom`
+-  `saxon-HE-11.4.jar` from [Saxonica](https://www.saxonica.com/products/products.xml) to `lib/custom` for XSLT 3.0 support
+- `xmlresolver-4.5.2.jar` [xmlresolver](https://github.com/xmlresolver/xmlresolver/releases/tag/4.5.2)
 ## Pull
 This image from [docker hub](https://hub.docker.com/r/quodatum/basexhttp)
 ```
@@ -25,21 +26,40 @@ This image from [github ghcr.io](https://github.com/Quodatum/basex-docker/pkgs/c
 docker pull ghcr.io/quodatum/basexhttp:latest
 ```
 
-The official BaseX image on docker hub
-```
-docker pull basex/basexhttp:latest
-```
-## Run examples
 
-### Simple test: access to dba and chat, but no data persistance
+## Usage examples
+
+### Simple test 
+Create and start a container named `basex` running the BaseX 10.3 http server on port 8080
+
+```bash
+docker run --name basex10 -p 8080:8080 -d quodatum/basexhttp:basex-10.3 
 ```
- docker run  -p 8984:8984  quodatum/basexhttp:latest
+Confirm working by browsing to site root page i.e. http://your-host:8080/.
+The DBA and Chat apps can not be used because no users are defined.
+
+To create the admin user. Shell into the container...
 ```
+ docker exec -it basex10 /bin/sh
+```
+and run
+```
+echo "your password" | basex -cPASSWORD
+exit
+```
+Restart the container to pick up the change.
+
+```
+docker container restart basex10
+```
+
+
+
 ### Persist data and settings to a volume
 ```
 docker volume create my-basex-data 
 
-docker run  -p 8984:8984 \
+docker run  -p 8080:8080 \
             -v my-basex-data:/srv/basex/data \
             -d quodatum/basexhttp:latest 
 ```
@@ -48,7 +68,7 @@ docker run  -p 8984:8984 \
 mkdir data 
 chown -R 1000:1000 data
 
-docker run  -p 8984:8984 \
+docker run  -p 8080:8080 \
             -v `pwd`/data:/srv/basex/data \
             -d quodatum/basexhttp:latest 
 ```
@@ -61,20 +81,20 @@ function _:root(){
 "Hello, I'm a new text only front page"
 };
 
-docker run  -p 8984:8984 \
+docker run  -p 8080:8080 \
             -v `pwd`/data:/srv/basex/data \
             -v `pwd`/root.xqm:/srv/basex/webapp/restxq.xqm \
             -d quodatum/basexhttp:latest
 ```
 # webapp
 ```
-docker run  -p 28984:8984 \
+docker run  -p 28080:8080 \
             -v `pwd`/webapp:/srv/basex/webapp \
             -v `pwd`/repo:/srv/basex/repo \
             quodatum/basexhttp:latest
 ```
 ## Supported JVM versions
-Tested largely with `adoptopenjdk:11-jre-hotspot`. This is based on ubuntu 20.04. It is used because it is available for all the supported platforms.
+Tested largely with `eclipse-temurin:17-jre`. This is based on ubuntu latest. It is used because it is available for all the supported platforms.
 * 
 ## Dockerfile notes
 
@@ -89,8 +109,17 @@ Tested largely with `adoptopenjdk:11-jre-hotspot`. This is based on ubuntu 20.04
 
 
 ## Docker-compose
+@TODO
+## See also
+The official BaseX image on docker hub. Currently unmaintained. More information at
+ [basex#2051](https://github.com/BaseXdb/basex/issues/2051)
+```
+docker pull basex/basexhttp:latest
+```
 
 ## Components
 * [BaseX](https://basex.org/about/open-source/) 3-clause BSD License
 
 * [Saxon-HE](https://sourceforge.net/projects/saxon/) Mozilla Public License 2.0 
+
+* [XMLresolver](https://github.com/xmlresolver/xmlresolver) Apache License version 2.0
