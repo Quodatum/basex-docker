@@ -2,9 +2,13 @@
 version: '3'
 services:
   basex:
-    image: quodatum/basexhttp:15-jre-hotspot
+    image: quodatum/basexhttp
     container_name: basex
     ports:
-      - "8984:8984"
+      - "9091:8080"
     volumes:
-      - ./custom:/srv/basex/lib/custom:ro
+      - basex-data:/srv/basex/data \
+      - `pwd`/root.xqm:/srv/basex/webapp/restxq.xqm \
+    restart: unless-stopped
+volumes:
+  basex-data:

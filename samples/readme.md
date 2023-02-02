@@ -3,7 +3,7 @@
 ## minimal
 
 ```
-docker run -p 8984:8984 quodatum/basexhttp
+docker run -p 8080:8080 quodatum/basexhttp
 ```
 
 ## docker-compose

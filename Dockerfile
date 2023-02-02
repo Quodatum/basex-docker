@@ -2,7 +2,7 @@
 # @created 2021-03
 # author="Andy Bunce"
 ARG JDK_IMAGE=eclipse-temurin:17-jre
-ARG BASEX_VER=https://files.basex.org/releases/10.3/BaseX103.zip
+ARG BASEX_VER=https://files.basex.org/releases/10.4/BaseX104.zip
 
 FROM $JDK_IMAGE  AS builder
 ARG BASEX_VER
