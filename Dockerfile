@@ -20,7 +20,7 @@ ARG BASEX_VER
 COPY --from=builder  /srv/ /srv
 
 COPY  basex/.basex /srv/basex/
-COPY  basex/custom/* /srv/basex/lib/custom
+COPY  basex/custom/* /srv/basex/lib/custom/
 
 # Create a user+ group 'basex'
 RUN addgroup --gid 1000 basex 
