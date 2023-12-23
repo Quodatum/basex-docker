@@ -2,7 +2,7 @@
 # @created 2021-03
 # author="Andy Bunce"
 ARG JDK_IMAGE=eclipse-temurin:17-jre
-ARG BASEX_VER=https://files.basex.org/releases/10.4/BaseX104.zip
+ARG BASEX_VER=https://files.basex.org/releases/10.7/BaseX107.zip
 
 FROM $JDK_IMAGE  AS builder
 ARG BASEX_VER
@@ -31,12 +31,12 @@ USER basex
 
 ENV PATH=$PATH:/srv/basex/bin
 # JVM options e.g "-Xmx2048m "
-ENV BASEX_JVM="--add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/jdk.internal.loader=ALL-UNNAMED"
+ENV BASEX_JVM=""
 
 # 1984/tcp: API
-# 8984/tcp: HTTP
-# 8985/tcp: HTTP stop
-EXPOSE 1984 8984 8985
+# 8080/tcp: HTTP
+# 8081/tcp: HTTP stop
+EXPOSE 1984 8080 8081
 
 # no VOLUMEs defined
 WORKDIR /srv
