@@ -7,8 +7,8 @@ services:
     ports:
       - "9091:8080"
     volumes:
-      - basex-data:/srv/basex/data \
-      - `pwd`/root.xqm:/srv/basex/webapp/restxq.xqm \
+      - basex-data:/srv/basex/data 
+      - ./root.xqm:/srv/basex/webapp/restxq.xqm 
     restart: unless-stopped
 volumes:
   basex-data:
