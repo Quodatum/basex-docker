@@ -10,12 +10,12 @@ Experiments with an alternative [BaseX](https://basex.org)  multi-architecture d
 - Images are published to docker hub and github container repositories for each release. See github action script `buildx.yml`.
 
 - Runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
-- `InaccessibleObjectException` [remediation](https://www.mail-archive.com/basex-talk%40mailman.uni-konstanz.de/msg13498.html) via JVM options
+- $BASEX_JVM environment support
 
 ## Additional libraries supplied in image
-The image is created with the jars below in `/lib/custom`
--  `saxon-HE-11.4.jar` from [Saxonica](https://www.saxonica.com/products/products.xml) to `lib/custom` for XSLT 3.0 support
-- `xmlresolver-4.6.4.jar` [xmlresolver](https://github.com/xmlresolver/xmlresolver/releases/tag/4.5.2)
+The image includes the jars below in `/lib/custom`
+-  `saxon-HE-x.y.jar` from [Saxonica](https://www.saxonica.com/products/products.xml) to `lib/custom` for XSLT 3.0 support
+- `xmlresolver-x.y.jar` [xmlresolver](https://github.com/xmlresolver/xmlresolver/releases)
 
 ## Pull
 This image from [docker hub](https://hub.docker.com/r/quodatum/basexhttp)
