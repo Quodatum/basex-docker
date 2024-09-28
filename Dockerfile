@@ -8,7 +8,7 @@ ARG BASEX_VER=https://files.basex.org/releases/10.7/BaseX107.zip
 FROM $JDK_IMAGE  AS builder
 ARG BASEX_VER
 RUN echo 'using Basex: ' "$BASEX_VER"
-RUN apt-get update && apt-get install -y  unzip wget adduser && \
+RUN apt-get update && apt-get install -y  unzip wget && \
     cd /srv && wget "$BASEX_VER" && unzip *.zip && rm *.zip
 
 
@@ -23,6 +23,7 @@ COPY  basex/.basex /srv/basex/
 COPY  basex/custom/* /srv/basex/lib/custom/
 
 # Create a user+ group 'basex'
+RUN apt-get update && apt-get install -y adduser
 RUN addgroup --gid 1000 basex 
 RUN adduser --home /srv/basex/ --uid 1000 --gid 1000 basex 
 RUN chown -R basex:basex /srv/basex
