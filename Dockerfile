@@ -23,6 +23,7 @@ COPY  basex/.basex /srv/basex/
 COPY  basex/custom/* /srv/basex/lib/custom/
 
 # Create a user+ group 'basex'
+RUN apt-get update && apt-get install -y adduser
 RUN addgroup --gid 1000 basex 
 RUN adduser --home /srv/basex/ --uid 1000 --gid 1000 basex 
 RUN chown -R basex:basex /srv/basex
