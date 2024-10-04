@@ -3,7 +3,7 @@
 # @created 2021-03 
 # @author="Andy Bunce"
 ARG JDK_IMAGE=eclipse-temurin:17-jre
-ARG BASEX_VER=https://files.basex.org/releases/10.7/BaseX107.zip
+ARG BASEX_VER=https://files.basex.org/releases/11.3/BaseX113.zip
 
 FROM $JDK_IMAGE  AS builder
 ARG BASEX_VER
@@ -22,14 +22,14 @@ COPY --from=builder  /srv/ /srv
 COPY  basex/.basex /srv/basex/
 COPY  basex/custom/* /srv/basex/lib/custom/
 
-# Create a user+ group 'basex'
-RUN apt-get update && apt-get install -y adduser
-RUN addgroup --gid 1000 basex 
-RUN adduser --home /srv/basex/ --uid 1000 --gid 1000 basex 
-RUN chown -R basex:basex /srv/basex
+# recent JDK images have user 1000=ubuntu
+#RUN apt-get update && apt-get install -y adduser
+#RUN addgroup --gid 1000 basex 
+#RUN adduser --home /srv/basex/ --uid 1000 --gid 1000 basex 
+RUN chown -R 1000:1000 /srv/basex
 
 # Switch to 'basex'
-USER basex
+USER 1000
 
 ENV PATH=$PATH:/srv/basex/bin
 # JVM options e.g "-Xmx2048m "
