@@ -1,5 +1,4 @@
 # simple basex
-version: '3'
 services:
   basex:
     image: quodatum/basexhttp
