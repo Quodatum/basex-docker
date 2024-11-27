@@ -1,3 +1,6 @@
+# 2024-11-27
+* update BaseX to 11.5
+* update github actions versions
 # 2024-06-17
 * update BaseX to 11.0
 * Saxon-HE to 10.9
