@@ -1,5 +1,6 @@
 # Build BaseX docker image with customisation from folder basex
-# You probably dont't want to change this file but pass in the args you want
+# You probably dont't want to change this file, instead pass in the args you want 
+# via buildx.yml or similar
 # @created 2021-03 
 # @author="Andy Bunce"
 ARG JDK_IMAGE=eclipse-temurin:17-jre

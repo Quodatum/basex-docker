@@ -1,3 +1,5 @@
+# 2024-12-03
+* update BaseX to 11.6
 # 2024-11-27
 * update BaseX to 11.5
 * update github actions versions
