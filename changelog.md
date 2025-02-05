@@ -1,6 +1,6 @@
 # 2025-02-05
-* update BaseX to 11.7
-* Add org.opencontainers.image title and desciption labels
+* Update BaseX to 11.7
+* Add labels org.opencontainers.image. title and description 
 # 2024-12-03
 * update BaseX to 11.6
 # 2024-11-27
