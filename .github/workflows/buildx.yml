@@ -1,4 +1,4 @@
-# multi-arch BaseX docker build
+# Builds and publishes a Docker image `basexhttp` that runs the BaseX web server.
 # platforms: linux/amd64, linux/arm/v7, linux/arm64
 # published to: DockerHub and github (ghcr.io) on tag creation or manually
 # @see https://docs.github.com/en/actions/guides/publishing-docker-images#publishing-images-to-github-packages
@@ -7,8 +7,8 @@ name: multi-arch docker buildx
 env:
     JDK_IMAGE: eclipse-temurin:17-jre
     JDK_TAG: 17-jre
-    BASEX_VER: https://files.basex.org/releases/11.6/BaseX116.zip
-    BASEX_TAG: basex-11.6
+    BASEX_VER: https://files.basex.org/releases/11.7/BaseX117.zip
+    BASEX_TAG: basex-11.7
     
 on:
   workflow_dispatch:  
@@ -71,6 +71,8 @@ jobs:
             ghcr.io/quodatum/basexhttp:${{ env.JDK_TAG }}
             ghcr.io/quodatum/basexhttp:${{ env.BASEX_TAG }}
           labels: |
+            org.opencontainers.image.title="basexhttp"
+            org.opencontainers.image.description="BaseX installation. Runs http server."
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
