@@ -1,4 +1,6 @@
 # BaseX Dockerfile
+
+[changelog](changelog.md)
 [![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
 
 Experiments with an alternative [BaseX](https://basex.org)  multi-architecture docker image. 
