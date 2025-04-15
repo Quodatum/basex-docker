@@ -45,7 +45,7 @@ EXPOSE 1984 8080 8081
 WORKDIR /srv
 
 # Run BaseX HTTP server by default
-CMD ["/srv/basex/bin/basexhttp"]
+CMD ["/srv/basex/bin/basexhttp", "${SERVER_OPTS}"]
 
 LABEL org.opencontainers.image.source="https://github.com/Quodatum/basex-docker"
 LABEL org.opencontainers.image.vendor="Quodatum Ltd"
