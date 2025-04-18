@@ -14,6 +14,7 @@ Experiments with an alternative [BaseX](https://basex.org)  multi-architecture d
 
 - Runs as user 1000 rather than 1984 (see https://docs.basex.org/wiki/Docker#Non-privileged_User)
 - $BASEX_JVM environment support
+- $SERVER_OPTS environment variable can set `basexhttp` server options.
 
 ## Additional libraries supplied in image
 The image includes the jars below in `/lib/custom`
@@ -119,7 +120,36 @@ See [How to solve InaccessibleObjectException ("Unable to make {member} accessib
 
 ## Docker-compose
 A simple case is provided in `samples` folder.
-A more complex usage is shown [here](https://github.com/willhoeft-it/basex-oauth2/blob/8b9a830a6864dbfdb26abdcc9f34f6480c81f786/docker-compose.yml#L82)
+
+The compose file below shows the use of setting the `SERVER_OPTS` variable to run  a custom script (here `basex/setup.bxs`) before starting the httpserver.
+```
+services:
+  basex:
+    image: localhost/fred2
+    container_name: mdui
+    restart: unless-stopped
+    ports:
+      - "9093:8080"
+      - "9094:1984"
+    volumes:
+      - basex-data:/srv/basex/data 
+      - ./webapp/app:/srv/basex/webapp/app
+      - ./setup.bxs:/srv/basex/setup.bxs
+
+    environment:
+      - "SERVER_OPTS= -c basex/setup.bxs"
+    volumes_from:
+      - pdfdata
+     
+  pdfdata:
+    image: abc/data:latest
+
+volumes:
+  basex-data: # basex state users and databases
+    name: basex-data
+    external: true
+```
+A more complex usage with a BaseX service running with other components is shown [here](https://github.com/willhoeft-it/basex-oauth2/blob/8b9a830a6864dbfdb26abdcc9f34f6480c81f786/docker-compose.yml#L82)
 ## See also
 The official BaseX image on docker hub. Currently unmaintained. More information at
  [basex#2051](https://github.com/BaseXdb/basex/issues/2051)
