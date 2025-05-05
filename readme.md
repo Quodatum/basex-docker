@@ -1,7 +1,8 @@
 # BaseX Dockerfile
 
-See the [Changelog](changelog.md) for a summary of updates.
+[changelog](changelog.md)
 
+main
 [![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
 
 Experiments with an alternative [BaseX](https://basex.org)  multi-architecture docker image. 
@@ -58,12 +59,12 @@ Restart the container to pick up the change.
 ```
 docker container restart basex10
 ```
-
+Alternatively, you can supply a volume mapping that includes a prebuilt `users.xml` for `/srv/basex/data`
 
 
 ### Persist data and settings to a volume
 ```
-docker volume create my-basex-data 
+docker volume create or use my-basex-data 
 
 docker run  -p 8080:8080 \
             -v my-basex-data:/srv/basex/data \
