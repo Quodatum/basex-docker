@@ -33,8 +33,12 @@ RUN chown -R 1000:1000 /srv/basex
 USER 1000
 
 ENV PATH=$PATH:/srv/basex/bin
+
 # JVM options e.g "-Xmx2048m "
 ENV BASEX_JVM=""
+
+# ${SERVER_OPTS} eg https://docs.basex.org/main/Command-Line_Options#http_server
+ENV SERVER_OPTS=""
 
 # 1984/tcp: API
 # 8080/tcp: HTTP
@@ -44,11 +48,13 @@ EXPOSE 1984 8080 8081
 # no VOLUMEs defined
 WORKDIR /srv
 
-# Run BaseX HTTP server by default
-CMD ["/srv/basex/bin/basexhttp"]
+# Run BaseX HTTP server with options by default
+CMD basexhttp ${SERVER_OPTS}
 
 LABEL org.opencontainers.image.source="https://github.com/Quodatum/basex-docker"
 LABEL org.opencontainers.image.vendor="Quodatum Ltd"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.description="A multi-architecture BaseX (basex.org) docker image."
+
 LABEL com.quodatum.basex-docker.basex="${BASEX_VER}"
 LABEL com.quodatum.basex-docker.jdk="${JDK_IMAGE}"
