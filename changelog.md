@@ -1,5 +1,7 @@
 # 2025-04-15
-* ADD `${SERVER_OPTS}` arg to basexhttp CMD
+* Update BaseX to 11.9
+* Add `${SERVER_OPTS}` arg to basexhttp CMD
+* 
 # 2025-02-05
 * Update BaseX to 11.7
 * Add labels org.opencontainers.image. title and description 

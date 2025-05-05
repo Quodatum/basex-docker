@@ -48,11 +48,13 @@ EXPOSE 1984 8080 8081
 # no VOLUMEs defined
 WORKDIR /srv
 
-# Run BaseX HTTP server with otions by default
+# Run BaseX HTTP server with options by default
 CMD basexhttp ${SERVER_OPTS}
 
 LABEL org.opencontainers.image.source="https://github.com/Quodatum/basex-docker"
 LABEL org.opencontainers.image.vendor="Quodatum Ltd"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.description="A multi-architecture BaseX (basex.org) docker image."
+
 LABEL com.quodatum.basex-docker.basex="${BASEX_VER}"
 LABEL com.quodatum.basex-docker.jdk="${JDK_IMAGE}"

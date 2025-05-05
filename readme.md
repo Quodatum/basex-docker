@@ -75,7 +75,7 @@ mkdir data
 chown -R 1000:1000 data
 
 docker run  -p 8080:8080 \
-            -v `pwd`/data:/srv/basex/data \
+            -v ./data:/srv/basex/data \
             -d quodatum/basexhttp:latest 
 ```
 ### Shadow web server root page
@@ -88,41 +88,23 @@ function _:root(){
 };
 
 docker run  -p 8080:8080 \
-            -v `pwd`/data:/srv/basex/data \
-            -v `pwd`/root.xqm:/srv/basex/webapp/restxq.xqm \
+            -v ./data:/srv/basex/data \
+            -v ./root.xqm:/srv/basex/webapp/restxq.xqm \
             -d quodatum/basexhttp:latest
 ```
-# webapp
+### Webapp
+Install a local web app with custom repository entries
 ```
 docker run  -p 28080:8080 \
-            -v `pwd`/webapp:/srv/basex/webapp \
-            -v `pwd`/repo:/srv/basex/repo \
+            -v ./webapp:/srv/basex/webapp \
+            -v ./repo:/srv/basex/repo \
             quodatum/basexhttp:latest
 ```
-## Supported JVM versions
-Tested largely with `eclipse-temurin:17-jre`. This is based on ubuntu latest. It is used because it is available for all the supported platforms.
-
-Java15+ is required to avoid possiblity of container termination due to resource limit policies.
-See [OpenJDK's container awareness code](https://developers.redhat.com/articles/2022/04/19/java-17-whats-new-openjdks-container-awareness#recent_changes_in_openjdk_s_container_awareness_code)
-
-* 
-## Dockerfile notes
-
-### JVM options
-#### inaccessibleobjectexception
-This is only relevant when running BaseX versions compiled for `Java8` on JVMs 'Java9+`
-* --add-opens java.base/java.net=ALL-UNNAMED 
-* --add-opens java.base/jdk.internal.loader=ALL-UNNAMED
- 
-See [How to solve InaccessibleObjectException ("Unable to make {member} accessible: module {A} does not 'opens {package}' to {B}") on Java 9?](https://stackoverflow.com/questions/41265266/how-to-solve-inaccessibleobjectexception-unable-to-make-member-accessible-m)
-
-
-
 ## Docker-compose
 A simple case is provided in `samples` folder.
 
 The compose file below shows the use of setting the `SERVER_OPTS` variable to run  a custom script (here `basex/setup.bxs`) before starting the httpserver.
-```
+```yaml
 services:
   basex:
     image: localhost/fred2
@@ -150,6 +132,26 @@ volumes:
     external: true
 ```
 A more complex usage with a BaseX service running with other components is shown [here](https://github.com/willhoeft-it/basex-oauth2/blob/8b9a830a6864dbfdb26abdcc9f34f6480c81f786/docker-compose.yml#L82)
+## Supported JVM versions
+Tested largely with `eclipse-temurin:17-jre`. This is based on ubuntu latest. It is used because it is available for all the supported platforms.
+
+Java15+ is required to avoid possiblity of container termination due to resource limit policies.
+See [OpenJDK's container awareness code](https://developers.redhat.com/articles/2022/04/19/java-17-whats-new-openjdks-container-awareness#recent_changes_in_openjdk_s_container_awareness_code)
+
+
+## Dockerfile notes
+
+### JVM options
+#### inaccessibleobjectexception
+This is only relevant when running BaseX versions compiled for `Java8` on JVMs `Java9+`
+* --add-opens java.base/java.net=ALL-UNNAMED 
+* --add-opens java.base/jdk.internal.loader=ALL-UNNAMED
+ 
+See [How to solve InaccessibleObjectException ("Unable to make {member} accessible: module {A} does not 'opens {package}' to {B}") on Java 9?](https://stackoverflow.com/questions/41265266/how-to-solve-inaccessibleobjectexception-unable-to-make-member-accessible-m)
+
+
+
+
 ## See also
 The official BaseX image on docker hub. Currently unmaintained. More information at
  [basex#2051](https://github.com/BaseXdb/basex/issues/2051)
