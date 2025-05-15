@@ -1,9 +1,13 @@
-# BaseX Dockerfile
-
-[changelog](changelog.md)
-
-main
+![GitHub Release](https://img.shields.io/github/v/release/quodatum/basex-docker)
+![GitHub Repo stars](https://img.shields.io/github/stars/quodatum/basex-docker)
+![GitHub License](https://img.shields.io/github/license/quodatum/basex-docker)
+![Docker Pulls](https://img.shields.io/docker/pulls/quodatum/basexhttp)
 [![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
+# BaseX Dockerfile
+ [change log](changelog.md)
+
+
+
 
 Experiments with an alternative [BaseX](https://basex.org)  multi-architecture docker image. 
 
