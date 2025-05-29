@@ -21,17 +21,21 @@ COPY --from=builder  /srv/ /srv
 COPY  basex/.basex /srv/basex/
 COPY  basex/custom/* /srv/basex/lib/custom
 
-# Create a user+ group 'basex'
-RUN addgroup --gid 1000 basex 
-RUN adduser --home /srv/basex/ --uid 1000 --gid 1000 basex 
-RUN chown -R basex:basex /srv/basex
+# recent JDK images have user 1000=ubuntu
+#RUN apt-get update && apt-get install -y adduser
+#RUN addgroup --gid 1000 basex 
+#RUN adduser --home /srv/basex/ --uid 1000 --gid 1000 basex 
+RUN chown -R 1000:1000 /srv/basex
 
 # Switch to 'basex'
-USER basex
+USER 1000
 
 ENV PATH=$PATH:/srv/basex/bin
 # JVM options e.g "-Xmx2048m "
 ENV BASEX_JVM=""
+
+# ${SERVER_OPTS} eg https://docs.basex.org/main/Command-Line_Options#http_server
+ENV SERVER_OPTS=""
 
 # 1984/tcp: API
 # 8080/tcp: HTTP
@@ -42,7 +46,7 @@ EXPOSE 1984 8080 8081
 WORKDIR /srv
 
 # Run BaseX HTTP server by default
-CMD ["/srv/basex/bin/basexhttp"]
+CMD ["sh","-c","basexhttp $SERVER_OPTS"]
 
 LABEL org.opencontainers.image.source="https://github.com/Quodatum/basex-docker"
 LABEL org.opencontainers.image.vendor="Quodatum Ltd"
