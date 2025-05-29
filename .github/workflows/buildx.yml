@@ -7,8 +7,8 @@ name: multi-arch docker buildx
 env:
     JDK_IMAGE: eclipse-temurin:17-jre
     JDK_TAG: 17-jre
-    BASEX_VER: https://files.basex.org/releases/10.4/BaseX104.zip
-    BASEX_TAG: basex-10.4
+    BASEX_VER: https://files.basex.org/releases/10.7/BaseX107.zip
+    BASEX_TAG: basex-10.7
     
 on:
   workflow_dispatch:  
