@@ -4,10 +4,8 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/quodatum/basexhttp)
 [![multi-arch docker buildx](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml/badge.svg)](https://github.com/Quodatum/basex-docker/actions/workflows/buildx.yml)
 # BaseX Dockerfile
- [change log](changelog.md)
-
-
-
+=======
+[changelog](changelog.md)
 
 Experiments with an alternative [BaseX](https://basex.org)  multi-architecture docker image. 
 
