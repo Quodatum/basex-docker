@@ -1,3 +1,6 @@
+# 2025-06-28
+* update to BaseX12.0
+* update xmlresolver to 6.0.17
 # 2025-04-15
 * Update BaseX to 11.9
 * Add `${SERVER_OPTS}` arg to basexhttp CMD
