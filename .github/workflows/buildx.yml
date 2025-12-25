@@ -8,8 +8,8 @@ env:
     JDK_IMAGE: eclipse-temurin:17-jre
     JDK_TAG: 17-jre
 
-    BASEX_VER: https://files.basex.org/releases/12.0/BaseX120.zip
-    BASEX_TAG: basex-12.0
+    BASEX_VER: https://files.basex.org/releases/12.0/BaseX121.zip
+    BASEX_TAG: basex-12.1
 
     
 on:
