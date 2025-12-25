@@ -1,4 +1,6 @@
-
+# 2025-12-26 12.1
+* update to BaseX12.1
+  
 # 2025-06-28 12.0
 * update to BaseX12.0
 * update xmlresolver to 6.0.17
