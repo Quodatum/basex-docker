@@ -37,8 +37,7 @@ jobs:
         id: dockerhub_build
         uses: docker/build-push-action@v7
         with:
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
-          push: true
+          platforms: linux/amd64,linux/arm64 # linux/arm/v7 
           build-args: |
             JDK_IMAGE=${{ env.JDK_IMAGE }}
             BASEX_VER=${{ env.BASEX_VER }}
