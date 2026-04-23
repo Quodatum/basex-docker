@@ -4,7 +4,7 @@
 # @created 2021-03 
 # @author="Andy Bunce"
 ARG JDK_IMAGE=eclipse-temurin:17-jre
-ARG BASEX_VER=https://files.basex.org/releases/11.3/BaseX113.zip
+ARG BASEX_VER=https://files.basex.org/releases/12.3/BaseX123.zip
 
 FROM $JDK_IMAGE  AS builder
 ARG BASEX_VER
@@ -20,8 +20,8 @@ ARG BASEX_VER
 
 COPY --from=builder  /srv/ /srv
 
-COPY  basex/.basex /srv/basex/
-COPY  basex/custom/* /srv/basex/lib/custom/
+COPY  basex/* /srv/basex/
+
 
 # recent JDK images have user 1000=ubuntu
 #RUN apt-get update && apt-get install -y adduser
@@ -33,7 +33,7 @@ RUN chown -R 1000:1000 /srv/basex
 USER 1000
 
 ENV PATH=$PATH:/srv/basex/bin
-
+RUN  ["basex","/srv/basex/build.xq"]
 # JVM options e.g "-Xmx2048m "
 ENV BASEX_JVM=""
 
@@ -49,7 +49,7 @@ EXPOSE 1984 8080 8081
 WORKDIR /srv
 
 # Run BaseX HTTP server with options by default
-CMD basexhttp ${SERVER_OPTS}
+CMD ["basexhttp", "${SERVER_OPTS}"]
 
 LABEL org.opencontainers.image.source="https://github.com/Quodatum/basex-docker"
 LABEL org.opencontainers.image.vendor="Quodatum Ltd"
