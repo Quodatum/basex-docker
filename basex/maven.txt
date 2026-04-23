@@ -1,7 +1,6 @@
 # Maven ids for jars to add to basex lib/custom, 
 # default source "https://repo1.maven.org/maven2/";
 
-
 net.sf.saxon:Saxon-HE:10.9
 
 org.xmlresolver:xmlresolver:6.0.21

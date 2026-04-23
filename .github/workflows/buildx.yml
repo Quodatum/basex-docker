@@ -60,7 +60,7 @@ jobs:
            
       - name: Build and push to github
         id: github_build
-        uses: docker/build-push-action@v7.1
+        uses: docker/build-push-action@v7
         with:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
