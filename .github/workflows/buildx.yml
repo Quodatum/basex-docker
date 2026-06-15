@@ -37,7 +37,7 @@ jobs:
         id: dockerhub_build
         uses: docker/build-push-action@v7
         with:
-          platforms: linux/amd64,linux/arm64 # linux/arm/v7 
+          platforms: linux/amd64,linux/arm64,linux/arm/v7 
           push: true
           outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=A multi-architecture BaseX (basex.org) docker image.  
           build-args: |
@@ -63,7 +63,7 @@ jobs:
         id: github_build
         uses: docker/build-push-action@v7
         with:
-          platforms: linux/amd64,linux/arm64 # linux/arm/v7 
+          platforms: linux/amd64,linux/arm64,linux/arm/v7 
           push: true
           outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=A multi-architecture BaseX (basex.org) docker image.
           build-args: |
