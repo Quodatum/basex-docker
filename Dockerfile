@@ -33,7 +33,10 @@ RUN chown -R 1000:1000 /srv/basex
 USER 1000
 
 ENV PATH=$PATH:/srv/basex/bin
-RUN  ["basex","/srv/basex/build.xq"]
+# get maven jars
+RUN chmod +x /srv/basex/download-jars.sh && \
+    /srv/basex/download-jars.sh /srv/basex/maven.txt -o /srv/basex/lib/custom
+    
 # JVM options e.g "-Xmx2048m "
 ENV BASEX_JVM=""
 
