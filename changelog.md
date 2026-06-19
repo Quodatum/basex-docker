@@ -1,3 +1,11 @@
+# next
+* update xmlresolver to 6.0.23
+# 2026-06-15 12.4
+* update BaseX 12.4
+* fix for arm7 fail
+# 2026-04-23
+* basex 12.3
+* download custom jars from maven
 # 2025-12-26 12.1
 * update to BaseX12.1
   

@@ -3,5 +3,5 @@
 
 net.sf.saxon:Saxon-HE:10.9
 
-org.xmlresolver:xmlresolver:6.0.21
-org.xmlresolver:xmlresolver:6.0.21:data
+org.xmlresolver:xmlresolver:6.0.23
+org.xmlresolver:xmlresolver:6.0.23:data

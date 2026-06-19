@@ -7,7 +7,7 @@
 
 Experiments with an alternative [BaseX](https://basex.org)  multi-architecture docker image. 
 
-[Changelog](changelog.md)
+[Changelog](CHANGELOG.md)
 
 ## Features
 
